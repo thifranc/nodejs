@@ -1,0 +1,16 @@
+doctype html
+head
+  title #{title}
+body
+  header
+    h1 My Site
+  footer
+    p#lol Running on node with Express, Jade and Stylus
+    form(action="/add", method="post")
+      input(type="text", id="new_todo", name="new_todo", autofocus)
+      input(type="submit")
+    form(action="/logout", methog="get")
+      input(type="submit" value="logout")
+    each val, index in todo
+      a(href='/del/'+index)='todo nb = '+index+' value is '+val
+      br

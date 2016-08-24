@@ -1,0 +1,13 @@
+html
+  head
+    title site
+  body
+    p bienvnu su lsite
+    form(action="/add", method="post")
+      input(type="text", name="newTodo")
+      input(type="submit")
+    form(action="/logout")
+      input(type="submit", value="logout")
+    each val,index in todo
+      a(href='/del/' + index)='you have ' + val + ' todo'
+      br
