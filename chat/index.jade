@@ -1,10 +1,29 @@
 doctype html
 head
   title Chat
-  meta(http-equiv="content-type", content="#{contentType}; charset=UTF-8")
+  meta(charset="UTF-8")
 body
   header
     h1 My Site
+    div#chat(style="white-space:pre;")
     p IUEBRVOERBVOEUIBVOEIURBVEIRUIOUBOIUBOIUB
-    script(type="text/javascript", src="/socket.io/socket.io.js").
+    input#message(type="text")
+    input#send(type="submit", value="send")
+    script(src="/socket.io/socket.io.js")
+    script.
+      console.log('BONJOUR');
+      var username = prompt('c koi ton blaze ?');
       var socket = io.connect('http://localhost:1337');
+      socket.emit('nouvo', {'user': username} );
+      var send = document.getElementById('send');
+      send.addEventListener('click', function(ev){
+        console.log('JE SUIS DEDANSll');
+        var text = document.getElementById('message');
+        var chat = document.getElementById('chat');
+        if (text.value.length != 0)
+        {
+          console.log('message a envoyer plizz : ' + text.value);
+          socket.emit('msg', {'text':text.value, 'user':username});
+          chat.innerHTML = chat.innerHTML + text.value + '\n';
+        }
+      }, false);
