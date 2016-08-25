@@ -15,11 +15,12 @@ var server = http.createServer(function(req, res) {
 var io = require('socket.io').listen(server);
 
 io.sockets.on('connection', function(socket){
-	socket.on('nouvo', function(socket){
-		console.log('nouvo catch ki arriv ! son blaz c : ' + socket.user + ' !');
+	socket.on('nouvo', function(nouvo){
+		var text = ('nouvo catch ki arriv ! son blaz c : ' + nouvo.user + ' !\n');
+		socket.broadcast.emit('new_user', text);
 	});
 	socket.on('msg', function(msg){
-		console.log('RECU');
+		socket.broadcast.emit('new_msg', {'user': msg.user, 'text': msg.text});
 		console.log(msg.user + '  dit : ' + msg.text);
 	});
 });
