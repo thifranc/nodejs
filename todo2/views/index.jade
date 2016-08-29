@@ -3,6 +3,10 @@ html
     title site
   body
     p bienvnu su lsite
+    script(src="/socket.io/socket.io.js")
+    script.
+      var socket = io.connect('http://localhost:1337');
+  //
     form(action="/add", method="post")
       input(type="text", name="newTodo")
       input(type="submit")
