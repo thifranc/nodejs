@@ -3,15 +3,36 @@ html
     title site
   body
     p bienvnu su lsite
+    ul#todo
+    input#todo_text(type="text", placeholder="newTodo")
+    input#new_todo(type="button", value='submit')
     script(src="/socket.io/socket.io.js")
     script.
       var socket = io.connect('http://localhost:1337');
-  //
-    form(action="/add", method="post")
-      input(type="text", name="newTodo")
-      input(type="submit")
-    form(action="/logout")
-      input(type="submit", value="logout")
-    each val,index in todo
-      a(href='/del/' + index)='you have ' + val + ' todo'
-      br
+      socket.on('new_todo', function(data){
+        var remove = document.getElementById('todo');
+        remove.parentNode.removeChild(remove);
+        var todo = document.createElement('UL');
+        todo.setAttribute('id', 'todo');
+        for(i = 0; i < data.todo.length; i++)
+        {
+          var child = document.createElement('LI');
+          var text_child = document.createTextNode(data.todo[i]);
+          child.appendChild(text_child);
+          todo.appendChild(child);
+        }
+        document.body.appendChild(todo);
+        });
+      document.getElementById('new_todo').addEventListener('click', function(){
+        var text = document.getElementById('todo_text').value;
+        console.log(socket);
+        if (typeof text != undefined)
+        {
+          socket.emit('new_todo', {'text' : text});
+          var todo = document.getElementById('todo');
+          var child = document.createElement('LI');
+          var text_child = document.createTextNode(text);
+          child.appendChild(text_child);
+          todo.appendChild(child);
+        }
+      });
