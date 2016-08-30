@@ -16,7 +16,7 @@ io.sockets.on('connection', function(socket){
 	console.log('connected!');
 	socket.on('new_todo', function(text){
 		todo.push(text.text);
-		console.log(todo);
+		console.log(JSON.parse(text.todo));
 		socket.broadcast.emit('new_todo', {'todo': todo});
 		});
 	});

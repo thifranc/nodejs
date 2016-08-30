@@ -28,8 +28,12 @@ html
         console.log(socket);
         if (typeof text != undefined)
         {
-          socket.emit('new_todo', {'text' : text});
           var todo = document.getElementById('todo');
+          console.log(todo);
+          var todo_json = JSON.stringify(todo.innerHTML.replace(/\<\/li\>/g, '').split('<li>'));
+          console.log(todo_json);
+          console.log(todo);
+          socket.emit('new_todo', {'text' : text, 'todo' : todo_json});
           var child = document.createElement('LI');
           var text_child = document.createTextNode(text);
           child.appendChild(text_child);
