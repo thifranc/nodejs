@@ -3,7 +3,7 @@ html
     title completion
   body
     p bonjour nike tous vos mair
-    div#towns
+    div#towns(style="display:block;")
     input#search(type="text", placeholder="search...")
     script(src="/socket.io/socket.io.js")
     script.
@@ -19,9 +19,10 @@ html
         remove.parentNode.removeChild(remove);
         var completion = document.createElement('DIV');
         completion.setAttribute('id', 'towns');
+        completion.setAttribute('style', 'display:block;');
         for (i = 0; i < towns.towns.length; i++)
         {
-          var child = document.createElement('P');
+          var child = document.createElement('DIV');
           var text_child = document.createTextNode(towns.towns[i]);
           child.appendChild(text_child);
           completion.appendChild(child);

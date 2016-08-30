@@ -22,7 +22,8 @@ io.sockets.on('connection', function(socket){
 		var out = [];
 		for (i = 0; i < towns.length && out.length < 10; i++)
 		{
-			if (towns[i].match(socket_data.input) != null)
+			var search = new RegExp(socket_data.input, 'i')
+			if (towns[i].match(search) != null)
 				out.push(towns[i]);
 		}
 		socket.emit('towns', {towns : out});
