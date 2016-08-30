@@ -1,0 +1,30 @@
+html
+  head
+    title completion
+  body
+    p bonjour nike tous vos mair
+    div#towns
+    input#search(type="text", placeholder="search...")
+    script(src="/socket.io/socket.io.js")
+    script.
+      var socket = io.connect('http://localhost:1337');
+      var search = document.getElementById('search');
+      search.addEventListener('keypress', function(ev){
+        var input = search.value + String.fromCharCode(ev.which);
+        socket.emit('lettre', {input:input});
+      });
+      socket.on('towns', function(towns){
+        console.log(towns.towns);
+        var remove = document.getElementById('towns');
+        remove.parentNode.removeChild(remove);
+        var completion = document.createElement('DIV');
+        completion.setAttribute('id', 'towns');
+        for (i = 0; i < towns.towns.length; i++)
+        {
+          var child = document.createElement('P');
+          var text_child = document.createTextNode(towns.towns[i]);
+          child.appendChild(text_child);
+          completion.appendChild(child);
+        }
+        document.body.appendChild(completion);
+        });
