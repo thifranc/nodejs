@@ -1,0 +1,11 @@
+doctype html
+head
+  title Chat
+  meta(charset="UTF-8")
+body
+  header
+    h1 My Site
+    div#chat(style="white-space:pre;")
+    script(src="/socket.io/socket.io.js")
+    script.
+      var socket = io.connect('http://localhost:1337');
