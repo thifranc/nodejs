@@ -6,7 +6,7 @@ body
   header
     h1 My Site
     div#chat(style="white-space:pre;")
-    p IUEBRVOERBVOEUIBVOEIURBVEIRUIOUBOIUBOIUB
+    p BIENVENUE SUR LE CHAT DES VINKEUR
     input#message(type="text", value="discute", maxlength="30")
     input#send(type="submit", value="send")
     input#hack(type="submit", value="hack")
@@ -14,30 +14,30 @@ body
     script.
       var username = prompt('c koi ton blaze ?');
       document.getElementById('hack').addEventListener('click', function(){
-        username = prompt('hack tout le monde et prends une fausse identite !!!');
+      username = prompt('hack tout le monde et prends une fausse identite !!!');
       });
       var socket = io.connect('http://localhost:1337');
       socket.emit('nouvo', {'user': username} );
       socket.on('new_msg', function(msg){
-        console.log(msg);
-        var chat = document.getElementById('chat');
-        var new_msg = msg.user + ' dit : ' + msg.text + '\n';
-        chat.innerHTML = chat.innerHTML + new_msg;
+      console.log(msg);
+      var chat = document.getElementById('chat');
+      var new_msg = msg.user + ' dit : ' + msg.text + '\n';
+      chat.innerHTML = chat.innerHTML + new_msg;
       });
       socket.on('new_user', function(msg){
-        var chat = document.getElementById('chat');
-        chat.innerHTML = chat.innerHTML + msg;
+      var chat = document.getElementById('chat');
+      chat.innerHTML = chat.innerHTML + msg;
       });
       var send = document.getElementById('send');
       send.addEventListener('click', function(ev){
-        var text = document.getElementById('message');
-        var chat = document.getElementById('chat');
-        if (text.value.length != 0)
+      var text = document.getElementById('message');
+      var chat = document.getElementById('chat');
+      if (text.value.length != 0)
         {
-          console.log('message a envoyer plizz : ' + text.value);
-          socket.emit('msg', {'text':text.value, 'user':username});
-          var new_msg = username + ' dit : ' + text.value + '\n';
-          chat.innerHTML = chat.innerHTML + new_msg;
-          text.value = "";
+        console.log('message a envoyer plizz : ' + text.value);
+        socket.emit('msg', {'text':text.value, 'user':username});
+        var new_msg = username + ' dit : ' + text.value + '\n';
+        chat.innerHTML = chat.innerHTML + new_msg;
+        text.value = "";
         }
       }, false);
