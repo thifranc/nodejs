@@ -1,0 +1,29 @@
+<html>
+	<head>
+		<title>lol</title>
+	</head>
+	<body>
+		<form action="/login" method="post">
+			<input id="login" type="text" name="login" placeholder="log in">
+			<input type="submit" value="log">
+		</form>
+		<script>
+			var parsed_cook = parse_cookie(document.cookie);
+			if (parsed_cook.user == null)
+				document.body.innerHTML = document.body.innerHTML + 't pas ko';
+			else
+				document.body.innerHTML = document.body.innerHTML + 'salut ! ' + parsed_cook.user;
+
+				function parse_cookie(cookie){
+					var tab = cookie.split(';');
+					var result = new Array();
+					for (i = 0 ; i < tab.length ; i++)
+					{
+						var splitted = tab[i].split('=');
+						result[splitted[0]] = splitted[1];
+					}
+					return (result);
+				}
+		</script>
+	</body>
+</html>
